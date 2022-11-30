@@ -13,6 +13,11 @@ class Teclado{
         this.colors_input = document.querySelector('.colors_input');
         this.keyboard_lights = document.querySelector('.keyboard_lights');
         this.keyboard_wrapp = document.querySelector('.keyboard_wrapp');
+
+        this.array = ['º','1','2','3','4','5','6','7','8','9','0',"'",'¡','`','+','ç',"´",',','.','-','<'];
+        this.arrayShift = ['ª','!','"','·','$','%','&','/','(',')','=','?','¿','^','*','Ç','¨',';',':','_','>'];
+        
+        this.arrayAltGr ={'1':'|','2':'@','3':'#','4':'~','5':'€','6':'¬','7':'{','8':'[','9':']','0':'}'};
     }
 
     init(){
@@ -80,7 +85,7 @@ class Teclado{
                 }
                 setTimeout(()=> {
                     this.keys[i].classList.remove('remove')
-                },200)
+                },100)
             }
         })
     }
@@ -116,63 +121,60 @@ class Teclado{
         setInterval(() => {
             let randomColor = getRandomInt(0,16777215).toString(16);
             this.keyboard_lights.style.background = "#" + randomColor;
-            //con transition
             this.keyboard_lights.style.transition = "all 1s";
         }
         , 1000);
     }
-
-    // lo mismo pero pulsando con el click en la tecla y no con el teclado 
-
     
 
+
+
     mousedown(){
-        window.addEventListener('mousedown', (e) => {
-            for(let i = 0; i < this.keys.length; i++) {
-                if(e.key == this.keys[i].getAttribute('keyname' ) || e.key == this.keys[i].getAttribute('lowerCaseName')) {
-                    this.keys[i].classList.add('active')
+        for(let i = 0; i < this.keys.length; i++) {
+            this.keys[i].addEventListener('mousedown',(e) => {
+                const theKey = this.keys[i].getAttribute('keyname');
+                const idKey = this.keys[i].getAttribute('id');
+                console.log(e.target);
+                
+                
+                if(!(theKey == 'Caps Lock')) {
+                    this.keys[i].classList.add('active');
+                    console.log(idKey);
                     console.log(this.keys[i].getAttribute('keyname'));
+                    if (!(theKey == 'Shift'|| theKey == 'Ctrl' || theKey == 'Alt' || theKey == 'Win' || theKey == 'Backspace' || theKey == 'Tab' || theKey == 'Enter'|| theKey =='Fn')) {
+                        if(this.caps_lock_key.classList.contains('active')|| this.shift_left.classList.contains('active') || this.shift_right.classList.contains('active')) {
+                            this.text_input.value += theKey;
+                        } else {
+                            this.text_input.value += theKey.toLowerCase();
+                        }
+                    } 
                 }
-                if(e.code == 'Space') {
-                    this.spaceKey.classList.add('active')
+
+                if(theKey == 'Backspace') {
+                    this.text_input.value = this.text_input.value.slice(0, -1);
                 }
-                if(e.code == 'ShiftLeft') {
-                    this.shift_right.classList.remove('active')
-                }
-                if(e.code == 'ShiftRight') {
-                    this.shift_left.classList.remove('active')
-                }
-                if(e.code == 'CapsLock') {
+                if(theKey == 'Tab') {
+                    this.text_input.value += '    ';
+                } 
+                if(theKey == 'Caps Lock') {
                     this.caps_lock_key.classList.toggle('active');
                 }
-            }
-        })
+                if(idKey == 'space_key') {
+                    this.text_input.value += ' ';
+                }
+               
+            }) 
+        }
     }
 
     mouseup(){
-        window.addEventListener('mouseup', (e) => {
-            for(let i = 0; i < this.keys.length; i++) {
-                if(e.key == this.keys[i].getAttribute('keyname' ) || e.key == this.keys[i].getAttribute('lowerCaseName')) {
+        for(let i = 0; i < this.keys.length; i++) {
+            this.keys[i].addEventListener('mouseup',() => {
+                if(!(this.keys[i].getAttribute('keyname') == 'Caps Lock')) {
                     this.keys[i].classList.remove('active')
-                    this.keys[i].classList.add('remove')
                 }
-                if(e.code == 'Space') {
-                    this.spaceKey.classList.remove('active');
-                    this.spaceKey.classList.add('remove');
-                }
-                if(e.code == 'ShiftLeft') {
-                    this.shift_right.classList.remove('active')
-                    this.shift_right.classList.remove('remove')
-                }
-                if(e.code == 'ShiftRight') {
-                    this.shift_left.classList.remove('active')
-                    this.shift_left.classList.remove('remove')
-                }
-                setTimeout(()=> {
-                    this.keys[i].classList.remove('remove')
-                },200)
-            }
-        })
+            })
+        }
     }
 
 
