@@ -97,3 +97,8 @@ setInterval(() => {
     keyboard_lights.style.transition = "all 1s";
 }
 , 1000);
+
+
+
+
+

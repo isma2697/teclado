@@ -13,11 +13,8 @@ class Teclado{
         this.colors_input = document.querySelector('.colors_input');
         this.keyboard_lights = document.querySelector('.keyboard_lights');
         this.keyboard_wrapp = document.querySelector('.keyboard_wrapp');
-
-        this.array = ['º','1','2','3','4','5','6','7','8','9','0',"'",'¡','`','+','ç',"´",',','.','-','<'];
-        this.arrayShift = ['ª','!','"','·','$','%','&','/','(',')','=','?','¿','^','*','Ç','¨',';',':','_','>'];
-        
-        this.arrayAltGr ={'1':'|','2':'@','3':'#','4':'~','5':'€','6':'¬','7':'{','8':'[','9':']','0':'}'};
+        this.arrayShift={'º':'ª','1':'!','2':'"','3':'·','4':'$','5':'%','6':'&','7':'/','8':'(','9':')','0':'=','\'':'?','¡':'¿','`':'^','+':'*','ç':'Ç',',':';','.':':','-':'_','<':'>'};
+        this.arrayAlt ={'1':'|','2':'@','3':'#','4':'~','5':'€','6':'¬','7':'{','8':'[','9':']','0':'}'};
     }
 
     init(){
@@ -45,6 +42,7 @@ class Teclado{
             for(let i = 0; i < this.keys.length; i++) {
                 if(e.key == this.keys[i].getAttribute('keyname' ) || e.key == this.keys[i].getAttribute('lowerCaseName')) {
                     console.log(typeof(e));
+                    console.log("hola"+e.code);
                     this.keys[i].classList.add('active')
                     console.log(this.keys[i].getAttribute('keyname'));
                 }
@@ -142,11 +140,29 @@ class Teclado{
                     console.log(idKey);
                     console.log(this.keys[i].getAttribute('keyname'));
                     if (!(theKey == 'Shift'|| theKey == 'Ctrl' || theKey == 'Alt' || theKey == 'Win' || theKey == 'Backspace' || theKey == 'Tab' || theKey == 'Enter'|| theKey =='Fn')) {
-                        if(this.caps_lock_key.classList.contains('active')|| this.shift_left.classList.contains('active') || this.shift_right.classList.contains('active')) {
-                            this.text_input.value += theKey;
-                        } else {
-                            this.text_input.value += theKey.toLowerCase();
+
+                        if(this.caps_lock_key.classList.contains('active')) {
+                            this.text_input.value += theKey.toUpperCase();
+                        } 
+                        else if(this.shift_left.classList.contains('active') || this.shift_right.classList.contains('active')) {
+                            if (this.arrayShift[theKey]) {
+                                this.text_input.value += this.arrayShift[theKey];
+                            } else {    
+                                this.text_input.value += theKey;
+                            }
                         }
+
+                        else if(this.alt_key.classList.contains('active')) {
+                            if (this.arrayAlt[theKey]) {
+                                this.text_input.value += this.arrayAlt[theKey];
+                            } else {    
+                                this.text_input.value += theKey;
+                            }
+                        }
+
+
+
+                            
                     } 
                 }
 
@@ -181,7 +197,25 @@ class Teclado{
 
     
 
-  
+//     if (this.shift_left.classList.contains('active') || this.shift_right.classList.contains('active')) {
+//         if (this.arrayShift[theKey]) {
+//             this.text_input.value += this.arrayShift[theKey];
+//         } else {    
+//             this.text_input.value += theKey;
+//         }
+        
+//     } else if (this.alt_left.classList.contains('active') || this.alt_right.classList.contains('active')) {
+//         if (this.arrayAlt[theKey]) {
+//             this.text_input.value += this.arrayAlt[theKey];
+//         } else {
+//             this.text_input.value += theKey;
+//         }
+//     } else {
+//         this.text_input.value += theKey;
+//     }
+// } else {
+//     this.text_input.value += theKey.toLowerCase();
+// }
 
 
 
