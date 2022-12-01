@@ -113,12 +113,16 @@ class Teclado {
      */
     nightMode() {
         this.night_mode.addEventListener('click', () => {
+
+            // Toggle the class 'active' on the toggle circle, body, night mode button, keyboard wrapper,
             this.toggle_circle.classList.toggle('active');
             this.body.classList.toggle('active');
             this.night_mode.classList.toggle('active');
             this.keyboard_wrapp.classList.toggle('active');
             this.text_input.classList.toggle('active');
             this.change_color.classList.toggle('active');
+
+            //chage the mode of the keyboard
             for (let i = 0; i < this.keys.length; i++) {
                 this.keys[i].classList.toggle('keys_night')
             }
@@ -146,13 +150,10 @@ class Teclado {
         setInterval(() => {
             let randomColor = getRandomInt(0, 16777215).toString(16);
             this.keyboard_lights.style.background = "#" + randomColor;
-            this.keyboard_lights.style.transition = "all 1s";
+            this.keyboard_lights.style.transition = "all 1.6s";
         }
             , 1000);
     }
-
-
-
 
     /**
      * It adds an event listener to each key on the keyboard, and when a key is pressed, it adds the
@@ -224,7 +225,6 @@ class Teclado {
             })
         }
     }
-
 }
 
 /* Creating a new instance of the Teclado class and calling the init method on it. */
