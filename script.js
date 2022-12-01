@@ -1,5 +1,5 @@
-class Teclado{
-    constructor(){
+class Teclado {
+    constructor() {
         this.keys = document.querySelectorAll('.keys');
         this.spaceKey = document.querySelector('.space_key');
         this.shift_left = document.querySelector('.shift_left');
@@ -14,11 +14,15 @@ class Teclado{
         this.colors_input = document.querySelector('.colors_input');
         this.keyboard_lights = document.querySelector('.keyboard_lights');
         this.keyboard_wrapp = document.querySelector('.keyboard_wrapp');
-        this.arrayShift={'º':'ª','1':'!','2':'"','3':'·','4':'$','5':'%','6':'&','7':'/','8':'(','9':')','0':'=','\'':'?','¡':'¿','`':'^','+':'*','ç':'Ç',',':';','.':':','-':'_','<':'>'};
-        this.arrayAlt ={'1':'|','2':'@','3':'#','4':'~','5':'€','6':'¬','7':'{','8':'[','9':']','0':'}'};
+        this.arrayShift = { 'º': 'ª', '1': '!', '2': '"', '3': '·', '4': '$', '5': '%', '6': '&', '7': '/', '8': '(', '9': ')', '0': '=', '\'': '?', '¡': '¿', '`': '^', '+': '*', 'ç': 'Ç', ',': ';', '.': ':', '-': '_', '<': '>' };
+        this.arrayAlt = { '1': '|', '2': '@', '3': '#', '4': '~', '5': '€', '6': '¬', '7': '{', '8': '[', '9': ']', '0': '}' };
     }
 
-    init(){
+    /**
+     * This function sets the key names, listens for keydown and keyup events, and listens for
+     * mousedown and mouseup events.
+     */
+    init() {
         this.setKeyNames();
         this.keyDown();
         this.keyUp();
@@ -30,175 +34,200 @@ class Teclado{
 
     }
 
-    setKeyNames(){
-        for(let i = 0; i < this.keys.length; i++) {
+    /**
+     * It loops through the keys array and sets the keyname and lowerCaseName attributes of each key to
+     * the innerText of the key.
+     */
+    setKeyNames() {
+        for (let i = 0; i < this.keys.length; i++) {
             // console.log(this.keys[i]);
             this.keys[i].setAttribute('keyname', this.keys[i].innerText);
             this.keys[i].setAttribute('lowerCaseName', this.keys[i].innerText.toLowerCase());
         }
     }
 
-    keyDown(){
+    /**
+     * It adds an event listener to the window object that listens for a keydown event. When a keydown
+     * event is detected, it loops through the array of keys and checks if the key that was pressed is
+     * equal to the keyname attribute of the key. If it is, it adds the active class to the key.
+     */
+    keyDown() {
         window.addEventListener('keydown', (e) => {
-            for(let i = 0; i < this.keys.length; i++) {
-                if(e.key == this.keys[i].getAttribute('keyname' ) || e.key == this.keys[i].getAttribute('lowerCaseName')) {
-                    console.log(typeof(e));
-                    console.log("hola"+e.code);
+            for (let i = 0; i < this.keys.length; i++) {
+                if (e.key == this.keys[i].getAttribute('keyname') || e.key == this.keys[i].getAttribute('lowerCaseName')) {
+                    console.log(typeof (e));
+                    console.log("hola" + e.code);
                     this.keys[i].classList.add('active')
                     console.log(this.keys[i].getAttribute('keyname'));
                 }
-                if(e.code == 'Space') {
+                if (e.code == 'Space') {
                     this.spaceKey.classList.add('active')
                 }
-                if(e.code == 'ShiftLeft') {
+                if (e.code == 'ShiftLeft') {
                     this.shift_right.classList.remove('active')
                 }
-                if(e.code == 'ShiftRight') {
+                if (e.code == 'ShiftRight') {
                     this.shift_left.classList.remove('active')
                 }
-                if(e.code == 'CapsLock') {
+                if (e.code == 'CapsLock') {
                     this.caps_lock_key.classList.toggle('active');
                 }
             }
         })
     }
 
-    keyUp(){
+    /**
+     * When a key is pressed, the key is highlighted and when the key is released, the key is
+     * unhighlighted.
+     */
+    keyUp() {
         window.addEventListener('keyup', (e) => {
-            for(let i = 0; i < this.keys.length; i++) {
-                if(e.key == this.keys[i].getAttribute('keyname' ) || e.key == this.keys[i].getAttribute('lowerCaseName')) {
+            for (let i = 0; i < this.keys.length; i++) {
+                if (e.key == this.keys[i].getAttribute('keyname') || e.key == this.keys[i].getAttribute('lowerCaseName')) {
                     this.keys[i].classList.remove('active')
                     this.keys[i].classList.add('remove')
                 }
-                if(e.code == 'Space') {
+                if (e.code == 'Space') {
                     this.spaceKey.classList.remove('active');
                     this.spaceKey.classList.add('remove');
                 }
-                if(e.code == 'ShiftLeft') {
+                if (e.code == 'ShiftLeft') {
                     this.shift_right.classList.remove('active')
                     this.shift_right.classList.remove('remove')
                 }
-                if(e.code == 'ShiftRight') {
+                if (e.code == 'ShiftRight') {
                     this.shift_left.classList.remove('active')
                     this.shift_left.classList.remove('remove')
                 }
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.keys[i].classList.remove('remove')
-                },100)
+                }, 100)
             }
         })
     }
 
-    nightMode(){
-        this.night_mode.addEventListener('click',() => {
+    /**
+     * When the night mode button is clicked, toggle the class 'active' on the toggle circle, body,
+     * night mode button, keyboard wrapper, text input, and change color button, and toggle the class
+     * 'keys_night' on all the keys.
+     */
+    nightMode() {
+        this.night_mode.addEventListener('click', () => {
             this.toggle_circle.classList.toggle('active');
             this.body.classList.toggle('active');
             this.night_mode.classList.toggle('active');
             this.keyboard_wrapp.classList.toggle('active');
             this.text_input.classList.toggle('active');
             this.change_color.classList.toggle('active');
-            for(let i = 0; i < this.keys.length; i++) {
+            for (let i = 0; i < this.keys.length; i++) {
                 this.keys[i].classList.toggle('keys_night')
             }
         })
     }
 
-    changeColor(){
-        this.colors_input.addEventListener('input',() => {
-            for(let i = 0; i < this.keys.length; i++) {
+    changeColor() {
+        this.colors_input.addEventListener('input', () => {
+            for (let i = 0; i < this.keys.length; i++) {
                 this.keys[i].style.color = this.colors_input.value
             }
             this.keyboard_lights.style.background = this.colors_input.value;
         })
     }
 
-    randomColor(){
+    /**
+     * Every second, the background color of the div with the id of keyboard_lights will change to a
+     * random color.
+     */
+    randomColor() {
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
         getRandomInt(0, 255);
         setInterval(() => {
-            let randomColor = getRandomInt(0,16777215).toString(16);
+            let randomColor = getRandomInt(0, 16777215).toString(16);
             this.keyboard_lights.style.background = "#" + randomColor;
             this.keyboard_lights.style.transition = "all 1s";
         }
-        , 1000);
+            , 1000);
     }
-    
 
 
 
-    mousedown(){
-        for(let i = 0; i < this.keys.length; i++) {
-            this.keys[i].addEventListener('mousedown',(e) => {
+
+    /**
+     * It adds an event listener to each key on the keyboard, and when a key is pressed, it adds the
+     * corresponding letter to the text input.
+     */
+    mousedown() {
+        for (let i = 0; i < this.keys.length; i++) {
+            this.keys[i].addEventListener('mousedown', (e) => {
                 const theKey = this.keys[i].getAttribute('keyname');
                 const idKey = this.keys[i].getAttribute('id');
                 console.log(e.target);
-                
-                
-                if(!(theKey == 'Caps Lock')) {
+
+
+                if (!(theKey == 'Caps Lock')) {
                     this.keys[i].classList.add('active');
                     console.log(idKey);
                     console.log(this.keys[i].getAttribute('keyname'));
-                    if (!(theKey == 'Shift'|| theKey == 'Ctrl' || theKey == 'Alt' || theKey == 'Win' || theKey == 'Backspace' || theKey == 'Tab' || theKey == 'Enter'|| theKey =='Fn')) {
+                    if (!(theKey == 'Shift' || theKey == 'Ctrl' || theKey == 'Alt' || theKey == 'Win' || theKey == 'Backspace' || theKey == 'Tab' || theKey == 'Enter' || theKey == 'Fn')) {
 
-                        if(this.caps_lock_key.classList.contains('active')) {
+                        if (this.caps_lock_key.classList.contains('active')) {
                             this.text_input.value += theKey.toUpperCase();
-                        } 
-                        else if(this.shift_left.classList.contains('active') || this.shift_right.classList.contains('active')) {
+                        }
+                        else if (this.shift_left.classList.contains('active') || this.shift_right.classList.contains('active')) {
                             if (this.arrayShift[theKey]) {
                                 this.text_input.value += this.arrayShift[theKey];
-                            } else {    
+                            } else {
                                 this.text_input.value += theKey;
                             }
                         }
-                        else if(this.alt_key.classList.contains('active')) {
+                        else if (this.alt_key.classList.contains('active')) {
                             if (this.arrayAlt[theKey]) {
                                 this.text_input.value += this.arrayAlt[theKey];
-                            } else {    
+                            } else {
                                 this.text_input.value += theKey;
                             }
                         }
                         else {
                             this.text_input.value += theKey.toLowerCase();
                         }
-
-
-
-                            
-                    } 
+                    }
                 }
 
-                if(theKey == 'Backspace') {
+                if (theKey == 'Backspace') {
                     this.text_input.value = this.text_input.value.slice(0, -1);
                 }
-                if(theKey == 'Tab') {
+                if (theKey == 'Tab') {
                     this.text_input.value += '    ';
-                } 
-                if(theKey == 'Caps Lock') {
+                }
+                if (theKey == 'Caps Lock') {
                     this.caps_lock_key.classList.toggle('active');
                 }
-                if(idKey == 'space_key') {
+                if (idKey == 'space_key') {
                     this.text_input.value += ' ';
                 }
-               
-            }) 
+
+            })
         }
     }
 
-    mouseup(){
-        for(let i = 0; i < this.keys.length; i++) {
-            this.keys[i].addEventListener('mouseup',() => {
-                if(!(this.keys[i].getAttribute('keyname') == 'Caps Lock')) {
+    /**
+     * When the mouse is released, remove the active class from the key that was pressed.
+     */
+    mouseup() {
+        for (let i = 0; i < this.keys.length; i++) {
+            this.keys[i].addEventListener('mouseup', () => {
+                if (!(this.keys[i].getAttribute('keyname') == 'Caps Lock')) {
                     this.keys[i].classList.remove('active')
                 }
             })
         }
     }
 
-    
 }
 
+/* Creating a new instance of the Teclado class and calling the init method on it. */
 const teclado = new Teclado();
 teclado.init();
 
