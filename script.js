@@ -4,6 +4,7 @@ class Teclado{
         this.spaceKey = document.querySelector('.space_key');
         this.shift_left = document.querySelector('.shift_left');
         this.shift_right = document.querySelector('.shift_right');
+        this.alt_key = document.querySelector('.alt_key');
         this.caps_lock_key = document.querySelector('.caps_lock_key');
         this.toggle_circle = document.querySelector('.toggle_circle');
         this.night_mode = document.querySelector('.night_mode');
@@ -151,13 +152,15 @@ class Teclado{
                                 this.text_input.value += theKey;
                             }
                         }
-
                         else if(this.alt_key.classList.contains('active')) {
                             if (this.arrayAlt[theKey]) {
                                 this.text_input.value += this.arrayAlt[theKey];
                             } else {    
                                 this.text_input.value += theKey;
                             }
+                        }
+                        else {
+                            this.text_input.value += theKey.toLowerCase();
                         }
 
 
@@ -193,34 +196,7 @@ class Teclado{
         }
     }
 
-
-
     
-
-//     if (this.shift_left.classList.contains('active') || this.shift_right.classList.contains('active')) {
-//         if (this.arrayShift[theKey]) {
-//             this.text_input.value += this.arrayShift[theKey];
-//         } else {    
-//             this.text_input.value += theKey;
-//         }
-        
-//     } else if (this.alt_left.classList.contains('active') || this.alt_right.classList.contains('active')) {
-//         if (this.arrayAlt[theKey]) {
-//             this.text_input.value += this.arrayAlt[theKey];
-//         } else {
-//             this.text_input.value += theKey;
-//         }
-//     } else {
-//         this.text_input.value += theKey;
-//     }
-// } else {
-//     this.text_input.value += theKey.toLowerCase();
-// }
-
-
-
-
-
 }
 
 const teclado = new Teclado();
