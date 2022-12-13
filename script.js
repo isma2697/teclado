@@ -113,7 +113,7 @@ class Teclado {
      */
     nightMode() {
         this.night_mode.addEventListener('click', () => {
-
+            
             // Toggle the class 'active' on the toggle circle, body, night mode button, keyboard wrapper,
             this.toggle_circle.classList.toggle('active');
             this.body.classList.toggle('active');
@@ -154,7 +154,7 @@ class Teclado {
         }
             , 1000);
     }
-
+    
     /**
      * It adds an event listener to each key on the keyboard, and when a key is pressed, it adds the
      * corresponding letter to the text input.
@@ -226,7 +226,6 @@ class Teclado {
         }
     }
 }
-
 /* Creating a new instance of the Teclado class and calling the init method on it. */
 const teclado = new Teclado();
 teclado.init();

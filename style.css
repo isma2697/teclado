@@ -106,7 +106,7 @@ body {
 @keyframes keys_animation {
     0% {
         background-color: #333;
-        color: #fff;
+        color: rgba(233, 230, 230, 0.877);
     }
     100% {
         background-color: #fff;
@@ -181,7 +181,7 @@ body.active {
 @keyframes keys_night_animation {
     0%{
         background-color: #fff;
-        color: #000;
+        color: rgb(53, 51, 51);
     }
     100% {
         background-color: #333;
